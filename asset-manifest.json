@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/CNSSGitPage/static/css/main.56d46ab8.css",
+    "main.js": "/CNSSGitPage/static/js/main.d7aeaf2d.js",
+    "static/js/787.70079b53.chunk.js": "/CNSSGitPage/static/js/787.70079b53.chunk.js",
+    "index.html": "/CNSSGitPage/index.html",
+    "main.56d46ab8.css.map": "/CNSSGitPage/static/css/main.56d46ab8.css.map",
+    "main.d7aeaf2d.js.map": "/CNSSGitPage/static/js/main.d7aeaf2d.js.map",
+    "787.70079b53.chunk.js.map": "/CNSSGitPage/static/js/787.70079b53.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.56d46ab8.css",
+    "static/js/main.d7aeaf2d.js"
+  ]
+}
