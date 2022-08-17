@@ -61,7 +61,7 @@ function compileJavaCode(data) {
 }
 
 function compileWithCheerpJ(args, compileDoneFunction) {
-	let newArgs = ["com.sun.tools.javac.Main", "/app/tools.jar:/files/:/app/cnss.jar", "-d", "/files/"];
+	let newArgs = ["com.sun.tools.javac.Main", "/app/CNSSGitPage/tools.jar:/files/:/app/CNSSGitPage/cnss.jar", "-d", "/files/"];
 	for (let i in args)
 		newArgs.push(args[i]);
 	self.cheerpjRunMain.apply(null, newArgs).then(compileDoneFunction);
@@ -72,7 +72,7 @@ function afterCompile(r) {
 	// Non-zero exit code means that an error has happened
 	if (r == 0) {
 		sendMessage("add", "Running Simulation...\n");
-		self.cheerpjRunMain("cnss.simulator.Simulator", "/app/tools.jar:/files/", "/str/config.txt");
+		self.cheerpjRunMain("cnss.simulator.Simulator", "/app/CNSSGitPage/tools.jar:/files/", "/str/config.txt");
 	}
 }
 
