@@ -1,12 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Row, Col} from 'react-bootstrap';
-import Cell from './components/Cell';
-import CompilerAndWorkerManager from "./components/CompilerAndWorkerManager";
-import Sidebar from "./components/Sidebar";
-import StickyBox from "react-sticky-box";
-import CellCollection from "./components/CellCollection";
+import './components/Cell';
 import Notebook from "./components/Notebook";
 
 function App() {

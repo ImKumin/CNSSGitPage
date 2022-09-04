@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent} from 'react-pro-sidebar';
 import '../custom.scss';
 import CompilerAndWorkerManager from "./CompilerAndWorkerManager";

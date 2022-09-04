@@ -28,6 +28,9 @@ function CompilerAndWorkerManager(props) {
 			case "add":
 				props.addConsoleCellCode(data.message);
 				break;
+			default:
+				props.changeConsoleCellCode(data.message);
+				break;
 		}
 	}
 

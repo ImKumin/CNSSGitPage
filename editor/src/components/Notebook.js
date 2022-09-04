@@ -13,6 +13,7 @@ import CellCode from "./CellCodeEnum";
 import Graphics from "./Graphics";
 import ImportExportProjectModal from "./ImportExportProjectModal";
 import Parser from "../hooks/Parser";
+import CollaborativeMode from "./CollaborativeMode";
 
 const localStorageName = "CheerpJNotebook";
 const indexedDbName = "CheerpJNotebookIndexedDb";
@@ -29,10 +30,12 @@ class Notebook extends React.Component {
 			importModal: false
 		};
 		this.graphics = React.createRef();
+		this.convergence = null;
 	}
 
 	componentDidMount() {
 		this.loadNotebook();
+		this.convergence = new CollaborativeMode(this);
 	}
 
 	componentDidUpdate() {
@@ -80,7 +83,9 @@ class Notebook extends React.Component {
 	}
 
 	generateCell(type, code, mode, gutter, readOnly) {
+		let randomName = Math.floor((Math.random() * 999999) + 1) + new Date().getTime(); //Bad way of getting different ids, TODO:Check for duplicates
 		return {
+			name: type + "" + randomName,
 			type: type,
 			code: code,
 			className: this.calculateClassName(code),
@@ -176,7 +181,7 @@ class Notebook extends React.Component {
 	}
 
 	calculateClassName(code) {
-		let match = code.match(new RegExp("class" + '\\s(\\w+)'));
+		let match = code.match(new RegExp(`class\\s(\\w+)`));
 		if (match && match.length > 1)
 			return match[1];
 		else
@@ -184,7 +189,7 @@ class Notebook extends React.Component {
 	}
 
 	calculateClassPackageName(code) {
-		let match = code.match(new RegExp("package " + '([\\s\\S]*?)' + ";"));
+		let match = code.match(new RegExp(`package ([\\s\\S]*?);`));
 		if (match && match.length > 1)
 			return match[1];
 		else
@@ -199,32 +204,8 @@ class Notebook extends React.Component {
 	parseAndGraphics(output) {
 		let parser = new Parser();
 		let parsedOutput = parser.parseOutput(output);
-		this.graphics.current.drawCanvas(parsedOutput);
+		this.graphics.current.storeOutput(parsedOutput);
 		return output;
-	}
-
-	initColabMode() {
-		//TODO: Colab
-		console.log("Initing collaborative mode.");
-		window.Convergence.connectAnonymously("http://localhost:8000/api/realtime/convergence/default", "kumin")
-			.then(d => {
-				let domain = d;
-				// Now open the model, creating it using the initial data if it does not exist.
-				return domain.models().openAutoCreate({
-					collection: "example-ace",
-					id: "kuminExampleId",
-					ephemeral: true,
-					data: {text: "Hello Kumin"}
-				})
-			})
-			.then(handleOpen)
-			.catch(error => {
-				console.error("Could not open model ", error);
-			});
-
-		function handleOpen(model) {
-			console.log("Handling");
-		}
 	}
 
 	deleteAll() {
@@ -314,6 +295,9 @@ class Notebook extends React.Component {
 				this.setState({importModal: true});
 				break;
 			case "export":
+				this.setState({importModal: false});
+				break;
+			default:
 				this.setState({importModal: false});
 				break;
 		}

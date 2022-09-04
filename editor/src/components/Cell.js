@@ -28,7 +28,7 @@ function Cell(props) {
 			focus: props.onFocusMarkdown,
 			blur: props.onBlurMarkdown
 		};
-	}, []);
+	}, [props.onBlurMarkdown, props.onFocusMarkdown]);
 
 	function onChange(newValue) {
 		props.onChange(newValue);
@@ -49,7 +49,7 @@ function Cell(props) {
 			placeholder=""
 			mode={props.cellInfo.style.mode}
 			theme="monokai"
-			name={props.cellInfo.type}
+			name={props.cellInfo.name}
 			onChange={onChange}
 			fontSize={14}
 			showPrintMargin={false}

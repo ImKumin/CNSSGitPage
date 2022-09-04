@@ -9,16 +9,22 @@ class Graphics extends React.Component {
 		this.canvasHeight = 1000;
 		this.canvasRef = React.createRef();
 		this.nodes = {};
+		this.output = {};
 	}
 
-	drawCanvas(parsedOutput) {
+	storeOutput(parsedOutput) {
+		console.log(parsedOutput);
+		this.output = parsedOutput;
+	}
+
+	drawCanvas() {
 		const canvas = this.canvasRef.current;
 		const context = canvas.getContext('2d');
 		context.fillStyle = '#1f1f1b';
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-		this.drawNodes(parsedOutput.nodes);
-		this.drawMessages(parsedOutput.messages);
+		this.drawNodes(this.output.nodes);
+		this.drawMessages(this.output.messages);
 	}
 
 	drawNodes(nodesObj) {
@@ -52,7 +58,7 @@ class Graphics extends React.Component {
 		let scale = this.calculateScale(messagesObj);
 		for (let i in messagesObj) {
 			let m = messagesObj[i];
-			this.drawMessage(m.fromNode, m.toNode, m.time, m.time + 20, m.dropped, scale);
+			this.drawMessage(m.fromNode, m.toNode, m.time, m.deliveryTime, m.dropped, scale);
 		}
 	}
 
@@ -92,11 +98,14 @@ class Graphics extends React.Component {
 	}
 
 	render() {
+		if (Object.keys(this.output).length === 0)
+			return;
 		return <React.Fragment>
-			<canvas ref={this.canvasRef} width={this.canvasWidth} height={this.canvasHeight}/>
-			<Button onClick={() => {
+			<Button className="justify-content-center" onClick={() => {
 				this.drawCanvas()
-			}}>Draw</Button>
+			}}>Draw Nodes and Messages From Output</Button>
+			<p/>
+			<canvas ref={this.canvasRef} width={this.canvasWidth} height={this.canvasHeight}/>
 		</React.Fragment>;
 	}
 }

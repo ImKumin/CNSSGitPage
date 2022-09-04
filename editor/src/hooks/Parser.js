@@ -1,6 +1,4 @@
-import Notebook from "../components/Notebook";
-
-const CREATED_NODE_STRING = "Created Node";
+	const CREATED_NODE_STRING = "Created Node";
 const DROPPED_PACKET_STRING = "DROPPED";
 const NORMAL_PACKET_STRING = "PACKET";
 
@@ -33,11 +31,11 @@ class Parser {
 			nodeNumber: "-1",
 			nodeType: ""
 		};
-		let nodeNumber = line.match(new RegExp("Created Node " + '([\\s\\S]*?)' + ":"));
+		let nodeNumber = line.match(new RegExp(`Created Node ([\\s\\S]*?):`));
 		if (nodeNumber && nodeNumber.length > 1)
 			nodeInfo.nodeNumber = nodeNumber[1];
 
-		let nodeType = line.match(new RegExp("app code:" + '\\s(\\w+)'));
+		let nodeType = line.match(new RegExp(`app code:\\s(\\w+)`));
 		if (nodeType && nodeType.length > 1)
 			nodeInfo.nodeType = nodeType[1];
 
@@ -48,13 +46,14 @@ class Parser {
 	parseNewMessage(line, dropped) {
 		let messageInfo = {
 			dropped: dropped,
-			fromNode: line.match(new RegExp("src" + '\\s(\\w+)'))[1],
-			toNode: line.match(new RegExp("dst" + '\\s(\\w+)'))[1],
-			type: line.match(new RegExp("type" + '\\s(\\w+)'))[1],
-			ttl: parseInt(line.match(new RegExp("ttl" + '\\s(\\w+)'))[1]),
-			seq: parseInt(line.match(new RegExp("seq" + '\\s(\\w+)'))[1]),
-			size: parseInt(line.match(new RegExp("size" + '\\s(\\w+)'))[1]),
-			time: parseInt(line.match(new RegExp("time" + '\\s(\\w+)'))[1])
+			fromNode: line.match(new RegExp(`src\\s(\\w+)`))[1],
+			toNode: line.match(new RegExp(`dst\\s(\\w+)`))[1],
+			type: line.match(new RegExp(`type\\s(\\w+)`))[1],
+			ttl: parseInt(line.match(new RegExp(`ttl\\s(\\w+)`))[1]),
+			seq: parseInt(line.match(new RegExp(`seq\\s(\\w+)`))[1]),
+			size: parseInt(line.match(new RegExp(`size\\s(\\w+)`))[1]),
+			time: parseInt(line.match(new RegExp(`time\\s(\\w+)`))[1]),
+			deliveryTime: dropped ? parseInt(line.match(new RegExp(`time\\s(\\w+)`))[1]) + 20 : parseInt(line.match(new RegExp(`delivery\\s(\\w+)`))[1])
 		};
 
 		return messageInfo;

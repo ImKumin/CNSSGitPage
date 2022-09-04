@@ -31,7 +31,7 @@ function UploadFiles(props) {
 			reader.readAsArrayBuffer(file);
 		})
 
-	}, [])
+	}, [props]);
 	const {getRootProps, getInputProps} = useDropzone({onDrop});
 
 	return (
