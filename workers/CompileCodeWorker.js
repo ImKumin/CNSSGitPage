@@ -74,7 +74,7 @@ function afterCompile(r) {
 	if (r == 0) {
 		sendMessage("add", "Running Simulation...\n");
 		//FOR DEPLOY: self.cheerpjRunMain("cnss.simulator.Simulator", "/app/CNSSGitPage/tools.jar:/files/", "/str/config.txt");
-		self.cheerpjRunMain("cnss.simulator.Simulator", "/app/tools.jar:/files/", "/str/config.txt");
+		self.cheerpjRunMain("cnss.simulator.Simulator", "/app/CNSSGitPage/tools.jar:/files/", "/str/config.txt");
 	}
 }
 
