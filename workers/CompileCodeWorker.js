@@ -62,7 +62,7 @@ function compileJavaCode(data) {
 
 //FOR DEPLOY: let newArgs = ["com.sun.tools.javac.Main", "/app/CNSSGitPage/tools.jar:/files/:/app/CNSSGitPage/cnss.jar", "-d", "/files/"];
 function compileWithCheerpJ(args, compileDoneFunction) {
-	let newArgs = ["com.sun.tools.javac.Main", "/app/tools.jar:/files/:/app/cnss.jar", "-d", "/files/"];
+	let newArgs = ["com.sun.tools.javac.Main", "/app/CNSSGitPage/tools.jar:/files/:/app/CNSSGitPage/cnss.jar", "-d", "/files/"];
 	for (let i in args)
 		newArgs.push(args[i]);
 	self.cheerpjRunMain.apply(null, newArgs).then(compileDoneFunction);
